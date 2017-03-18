@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var station = $('#stationform').val();
+        var date = $('#dateform').val();
+        var jsonData = $.ajax({
+          url: "linechartGen.php",
+          dataType: "json",
+          data: {station: station, date: date},
+          async: false
+          }).responseText;    
+   
+    var data = new google.visualization.DataTable(jsonData);
+
+        var options = {
+          title: 'Hour vs. NO2 Concentration comparison',
+          hAxis: {
+            title: 'Hour',
+            ticks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]},
+          vAxis: {title: 'NO2 Concentration (µg/m³)'},
+          //curveType: 'function',
+          legend: { position: 'bottom' },
+          width: 1200
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div style="display: inline-block;">
+    <form id="form">
+      <p>Station: </p>
+      <select name="station" id="stationform" onchange="">
+        <option value="Brislington">Brislington</option>
+        <option value="Fishponds">Fishponds</option>
+        <option value="Newfoundland Way">Newfoundland Way</option>
+        <option value="Parson St">Parson St</option>
+        <option value="Rupert St">Rupert St</option>
+        <option value="Wells Road">Wells Road</option>
+      </select>
+    </form>
+    </div>
+
+    <div style="display: inline-block;">
+    <form id="form">
+      <p>Date: </p>
+      <!-- <div id="dateOption"></div> -->
+      <select name="date" id="dateform" style="width: 80pt" onchange="drawChart();"></select>
+    </form>
+    </div>
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    <div id="test"></div>
+
+    <script>
+     $(document).ready(function(){
+     $("#stationform").change(function(){
+    var station = $('#stationform').val();
+    $.ajax({
+      url: "DateDropdown.php",
+      //context: document.body,
+      data: {station: station},
+      success: function(response){
+        //alert(response);
+        $('#dateform').html(response);
+        drawChart();
+      }
+    }); 
+  });
+});
+    </script>
+  </body>
+</html>

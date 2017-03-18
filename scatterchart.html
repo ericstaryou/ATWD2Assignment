@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="table.css">
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        
+    var station = $('#stationform').val();
+    var jsonData = $.ajax({
+          url: "scatterchartGen.php",
+          dataType: "json",
+          data: {station: station},
+          async: false
+          }).responseText;    
+   
+    var data = new google.visualization.DataTable(jsonData);
+
+    var options = {
+    title: 'NO2 Concentration for ' + station + ' at 08:00:00 for Year 2016',
+    hAxis: {title: 'Day'},
+    vAxis: {title: 'NO2 Concentration (µg/m³)'},
+    //legend: 'none'
+     width: 1300,
+    //height: 800
+    };
+        
+    var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+    }
+    </script>
+  </head>
+  <body>
+    <form id="form">
+      <p>Station: </p>
+      <select name="station" id="stationform" onchange="drawChart();">
+        <option value="Brislington">Brislington</option>
+        <option value="Fishponds">Fishponds</option>
+        <option value="Newfoundland Way">Newfoundland Way</option>
+        <option value="Parson St">Parson St</option>
+        <option value="Rupert St">Rupert St</option>
+        <option value="Wells Road">Wells Road</option>
+      </select>
+    </form>
+    <script type="text/javascript">
+        function post(){
+            var station = $('#stationform').val();
+            var gd = null;
+            $.post("test1.php", {"station": station}, function(data){
+                //alert(JSON.stringify(data));
+                $("#test").text(JSON.parse(data));
+                gd = JSON.parse(data);
+            })
+            return gd;
+            /*$.ajax({
+                  url:"test1.php",
+                  type:"POST",
+                  data: {station: station},
+                  contentType:"application/json; charset=utf-8",
+                  dataType:"json",
+                  success: function(data){
+                    $("#test").text(data[0]);
+                      alert(data.join(' '));
+                  }
+                }) */
+        }
+    </script>
+    <!-- <div> -->
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+<!--     <table border="0" cellspacing="0" cellpadding="2" width="55%">
+      <tbody>
+        <tr>
+          <th width="80">Index</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+        </tr>
+        <tr>
+          <th>Band</th>
+          <td class="bg_low1">Low</td>
+          <td class="bg_low2">Low</td>
+          <td class="bg_low3">Low</td>
+          <td class="bg_moderate4">Moderate</td>
+          <td class="bg_moderate5">Moderate</td>
+          <td class="bg_moderate6">Moderate</td>
+          <td class="bg_high7">High</td>
+          <td class="bg_high8">High</td>
+          <td class="bg_high9">High</td>
+          <td class="bg_very_high10">Very High</td>
+        </tr>
+        <tr>
+          <th>µg/m³</th>
+          <td class="bg_low1">0-67</td>
+          <td class="bg_low2">68-134</td>
+          <td class="bg_low3">135-200</td>
+          <td class="bg_moderate4">201-267</td>
+          <td class="bg_moderate5">268-334</td>
+          <td class="bg_moderate6">335-400</td>
+          <td class="bg_high7">401-467</td>
+          <td class="bg_high8">468-534</td>
+          <td class="bg_high9">535-600</td>
+          <td class="bg_very_high10">601 or more</td>
+        </tr>
+      </tbody>
+    </table> -->
+ <!--    </div> -->
+  </body>
+</html>
