@@ -72,3 +72,9 @@ $reader->close();
 | **Access To Several Part of the Document at the Same Time**    | No | Yes |
 | **Alter XML Document Repeatedly**    | No | Yes |
 
+## References
+Harold, E.R. (2002) *Choosing between SAX and DOM*. Available from: http://www.cafeconleche.org/books/xmljava/chapters/ch09s11.html [Accessed 19/03/2017]. 
+
+Kak, A.C. (2012) *Scripting with Objects: A Comparative Presentation of Object-Oriented Scripting with Perl and Python* [online]. John Wiley & Sons. [Accessed 3/17/2017 2:58:17 PM].
+
+Krishnamurthi, S. and Ramakrishnan, C. (2003) *Practical Aspects of Declarative Languages: 4th International Symposium, PADL 2002, Portland, OR, USA, January 19-20, 2002. Proceedings* [online]. Springer. [Accessed 3/17/2017 2:55:40 PM]. 
