@@ -63,7 +63,7 @@ while($reader->read()){
 }
 $reader->close();
 ```
-## Summary 
+### Summary 
 | Aspects | Stream Parser | DOM Parser | 
 | ------ | ----------- | -----------|
 | **Memory Usage**   | Does not store anything to memory |  Loads the whole document into memory |
