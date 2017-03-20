@@ -72,6 +72,48 @@ $reader->close();
 | **Access To Several Part of the Document at the Same Time**    | No | Yes |
 | **Alter XML Document Repeatedly**    | No | Yes |
 
+## Extension of Charting and Data Visualization
+Google Scatter chart and a Google Line chart are used to represent the data queried from the normalised XML data files. The scatter chart can show a year (2016) worth of nitrogen dioxide (NO2) concentration data from a specific station at a specific hour (0800) of the day. User can select a specific station from the dropdown and the scatter chart will render the NO2 concentration data of every day that has the 0800 hours record for that specific station. As for the line chart, it shows the NO2 value in any 24-hour period on any day for any of the six stations. User can select the station and available date. 
+
+For the charts to offer more information, some visibility extension can be done. One of the implemented extensions is by colour encoding different levels of pollution based on the concentration of NO2 according to the [DEFRA Site](https://uk-air.defra.gov.uk/air-pollution/daqi).
+
+![Index Band](https://github.com/ericstaryou/ATWD2Assignment/blob/master/NO2%20band.PNG)
+
+Data points on the charts are coloured differently based on which band they fall in. The code snippet extracted from [scatterchartGen.php](https://github.com/ericstaryou/ATWD2Assignment/blob/master/scatterchartGen.php) shows that different data points are assigned with different colour code. 
+
+```php
+if($row['val'] < 0 || $row['val'] >= 0 && $row['val']  <= 67){
+  $colorcode = 'rgb(156, 255, 156)';
+}else if($row['val'] >= 68 && $row['val']  <= 134){
+  $colorcode = 'rgb(49, 255, 0)';
+}else if($row['val'] >= 135 && $row['val']  <= 200){
+  $colorcode = 'rgb(49, 207, 0)';
+}else if($row['val'] >= 201 && $row['val']  <= 267){
+  $colorcode = 'rgb(255, 255, 0)';
+}else if($row['val'] >= 268 && $row['val']  <= 334){
+  $colorcode = 'rgb(255, 207, 0)';
+}else if($row['val'] >= 335 && $row['val']  <= 400){
+  $colorcode = 'rgb(255, 154, 0)';
+}else if($row['val'] >= 401 && $row['val']  <= 467){
+  $colorcode = 'rgb(255, 100, 100)';
+}else if($row['val'] >= 468 && $row['val']  <= 534){
+  $colorcode = 'rgb(255, 0, 0)';
+}else if($row['val'] >= 535 && $row['val']  <= 600){
+  $colorcode = 'rgb(153, 0, 0)';
+}else if($row['val'] >= 601){
+  $colorcode = 'rgb(206, 48, 255)';
+}
+```
+The figure below shows the resulting scatter chart with colour encoded data points.
+
+![scatterchart](https://github.com/ericstaryou/ATWD2Assignment/blob/master/scatterchart%20Example.PNG) 
+
+Moreover, as mentioned earlier, the line chart only shows the value for only one station at a time. It can be improved by showing the values of all six stations of the selected date if the XML data files holds the record. Thus, there will be at most six lines on the line chart on one instance. This could help the user to compare the level of pollution based on the NO2 concentration between stations on the same day. 
+
+Other than just showing the value of NO2, a bar chart can be used to show the value of other pollutants the original CSV data file holds such as NO and NOx. The bar chart should be able to show the concentration level of NO2, NO, and NOx of all six stations on a specific date and time. It could even show the average pollution level of each type of pollutants for a whole year. A bar chart example is shown in the figure below. 
+
+![Bar Chart](https://github.com/ericstaryou/ATWD2Assignment/blob/master/Bar%20chart.PNG)
+
 ## References
 Harold, E.R. (2002) *Choosing between SAX and DOM*. Available from: http://www.cafeconleche.org/books/xmljava/chapters/ch09s11.html [Accessed 19/03/2017]. 
 
