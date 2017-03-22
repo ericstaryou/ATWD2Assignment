@@ -44,18 +44,6 @@
         <option value="Wells Road">Wells Road</option>
       </select>
     </form>
-    <script type="text/javascript">
-        function post(){
-            var station = $('#stationform').val();
-            var gd = null;
-            $.post("test1.php", {"station": station}, function(data){
-                //alert(JSON.stringify(data));
-                $("#test").text(JSON.parse(data));
-                gd = JSON.parse(data);
-            })
-            return gd;
-        }
-    </script>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
