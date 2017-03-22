@@ -15,7 +15,7 @@ foreach($loc as $key => $val){
 	$reader = new XMLReader();
 	$reader->open($file_name);
 	
-	//Outer array than contains all the rows
+	#Outer array than contains all the rows
 	$records = array();
 	$lat = null;
 	$long = null;
