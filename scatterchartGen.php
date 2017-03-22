@@ -1,6 +1,5 @@
 <?php  
   $station = htmlspecialchars($_GET["station"]);
-  //$station = 'Fishponds';
   $loc_name = str_replace(' ', '_', $station);
   $file_name = strtolower($loc_name).'_no2.xml';
   $reader = new XMLReader();
@@ -8,8 +7,8 @@
  
   $year = '2016';
   $data = array();
-
-  $day = 1; 
+  
+  //reading data from XML data files and storing into an array
   while($reader->read()){
     if($reader->nodeType === XMLREADER::ELEMENT && $reader->localName === 'reading'){
       $date = $reader->getAttribute('date');
@@ -21,27 +20,21 @@
         $reading['date'] = $date;
         $reading['val'] = (int)$reader->getAttribute('val');
         $data[] = $reading;
-        $day++;
       }
     }
   }
 
-  // foreach ($data as $row){
-  //   echo '<p>date: '.$row['date'].'<br/>';
-  //   echo 'val: '.$row['val']. '</p>';
-  // }
+  //sort the data according to the date
   asort($data);
 
   $array = array();
   $array['cols'][] = array('label' => 'Day', 'type' => 'string');
   $array['cols'][] = array('label' => 'NO2 Concentration (µg/m³)', 'type' => 'number');
   $array['cols'][] = array('type' => 'string', 'role' => 'style', 'p' => array('role' => 'style'));
-  //$array['cols'][] = array(array('label' => 'Day', 'type' => 'string'), array('label' => 'NO2', 'type' => 'number'), array('type' => 'string', 'role' => 'style', 'p' => array('role' => 'style')));
-
+  
   foreach($data as $row){
-    //$array['rows'][] = array('c' => array(array('v'=>$row['date']), array('v'=>$row['val'])) );
     $colorcode = null;
-
+    //colour encoding for different level of NO2 concentration
     if($row['val'] < 0 || $row['val'] >= 0 && $row['val']  <= 67){
       $colorcode = 'rgb(156, 255, 156)';
     }else if($row['val'] >= 68 && $row['val']  <= 134){
@@ -64,12 +57,12 @@
       $colorcode = 'rgb(206, 48, 255)';
     }
 
-    //arranging the data into a data stucture that the Google chart could understand
+    //arranging the data into a data stucture that the Google chart could understand 
+    //ref: http://stackoverflow.com/questions/17245478/building-array-and-formatting-json-for-google-charting-api
     $array['rows'][] = array('c' => array(array('v'=>$row['date']), array('v'=>$row['val']), array('v'=>'point {fill-color:' . $colorcode)));
   }
-
-  //echo json_encode($array);
-
+  
+  //encodes the array into json format as a response for ajax to populate the Google chart
   print json_encode($array);
 
 ?>
