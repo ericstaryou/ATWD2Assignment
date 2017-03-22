@@ -19,14 +19,14 @@
   		}
   	}
 
-  	//remove duplicate values from a multi-dimensional array 
-  	//ref: http://stackoverflow.com/questions/307674/how-to-remove-duplicate-values-from-a-multi-dimensional-array-in-php
+  	#remove duplicate values from a multi-dimensional array 
+  	#ref: http://stackoverflow.com/questions/307674/how-to-remove-duplicate-values-from-a-multi-dimensional-array-in-php
   	$data = array_map("unserialize", array_unique(array_map("serialize", $data)));
 	
-	//sort the data according to the date
+	#sort the data according to the date
   	asort($data);
 
-	//generate date dropdown options 
+	#generate date dropdown options 
   	$option = null;
 	foreach($data as $date){
 		if($option == null){
