@@ -15,15 +15,15 @@ foreach($loc as $key => $val){
 	$reader = new XMLReader();
 	$reader->open($file_name);
 	
-	#Outer array than contains all the rows
+	//Outer array than contains all the rows
 	$records = array();
 	$lat = null;
 	$long = null;
 
-	##Start reading attribute from XML and storing into array using XMLReader 
+	//Start reading attribute from XML and storing into array using XMLReader 
 	while($reader->read()){
 		if($reader->nodeType === XMLREADER::ELEMENT && $reader->localName === 'row'){
-			#inner array that contains all the required attributes for a particular row
+			//inner array that contains all the required attributes for a particular row
 			$row = array();
 			$row['count'] = $reader->getAttribute('count');
 		}
@@ -52,18 +52,8 @@ foreach($loc as $key => $val){
 	}
 	
 	$reader->close();
-
-	/*
-	foreach ($records as $row){
-			echo '<p><strong>Row '.$row['count'] . '</strong><br/>';
-			echo 'lat: '.$row['lat'].'<br/>';
-			echo 'long: '.$row['long'].'<br/>';
-			echo 'date: '.$row['date'].'<br/>';
-			echo 'time: '.$row['time'].'<br/>';
-			echo 'val: '.$row['no2']. '</p>';
-	}*/
 	
-	##Start writing XML file using XMLWriter
+	//Start writing XML file using XMLWriter
 	$type = 'nitrogen dioxide';
 	$desc = $val;
 	$lat = $row['lat'];
@@ -80,7 +70,7 @@ foreach($loc as $key => $val){
 			$writer->writeAttribute('lat', $lat);
 			$writer->writeAttribute('long', $long);
 			
-			#Data that was collected using XMLReader and was stored inside $records array is written as XML attribute values 
+			//Data that was collected using XMLReader and was stored inside $records array is written as XML attribute values 
 			foreach($records as $row){
 				$writer->startElement('reading');
 					$writer->writeAttribute('date', $row['date']);
