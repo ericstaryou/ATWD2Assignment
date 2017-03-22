@@ -1,5 +1,18 @@
 # ATWD2Assignment
-## Streaming Parsers vs DOM Parsers
+## 1.0 Links to Source Files
+### 1.1 PHP source code
+1. [CSV to XML (csv_to_xml.php)](https://github.com/ericstaryou/ATWD2Assignment/blob/master/csv_to_xml.php)
+2. [Normaliser (normaliser.php)](https://github.com/ericstaryou/ATWD2Assignment/blob/master/normaliser.php)
+3. [Scatter Chart Generator (scatterchartGen.php)](https://github.com/ericstaryou/ATWD2Assignment/blob/master/scatterchartGen.php)
+4. [Line Chart Generator (linechartGen.php)](https://github.com/ericstaryou/ATWD2Assignment/blob/master/linechartGen.php)
+5. [Date Dropdown Generator (DateDropdown.php)](https://github.com/ericstaryou/ATWD2Assignment/blob/master/DateDropdown.php)
+### 1.2 HTML source code/chart
+1. [Scatter Chart (scatterchart.html)](https://github.com/ericstaryou/ATWD2Assignment/blob/master/scatterchart.html)
+2. [Line Chart (linechart.html)](https://github.com/ericstaryou/ATWD2Assignment/blob/master/linechart.html)
+### 1.3 Markdown Documentation
+1. [Readme (README.md)](https://github.com/ericstaryou/ATWD2Assignment/blob/master/README.md)
+## 2.0 Reflection
+### 2.1 Streaming Parsers vs DOM Parsers
 According to Kak (2012), parsers for XML document are categorised under event-driven parsers and tree-building parsers. An event-driven parser, such as SAX parsers works by reading a XML document character by character from the start of the document to the end of it. While doing so, it triggers events based on the character it is seeing at the current instance and the preceding characters. Kak (2012) also states that “A commercial-grade XML parser will typically conform to either the SAX API or W3C DOM API”, where the SAX API is a standardized API for event-driven parsing of XML documents. Moreover, Simple Programming Interface for XML (SAX) is a low-level and event based model of XML parsing (Krishnamurthi and Ramakrishnan, 2003). 
   
 As for tree-building parsers, it works by scanning the whole document and construct the parse tree before it is being used as the document object model (DOM) for the document. Moreover, the DOM is considered a pull model where information from a document is being extracted by a client program via methods call (Harold, 2002). DOM are used mostly for document alteration and content search where traversing the trees into arbitrary nodes are required. Thus, for DOM parsers to work, it must load the whole document into the memory before the start of any operations.  
@@ -63,7 +76,7 @@ while($reader->read()){
 }
 $reader->close();
 ```
-### Summary 
+#### 2.1.1 Summary 
 | Aspects | Stream Parser | DOM Parser | 
 | ------ | ----------- | -----------|
 | **Memory Usage**   | Does not store anything to memory |  Loads the whole document into memory |
@@ -72,7 +85,7 @@ $reader->close();
 | **Access To Several Part of the Document at the Same Time**    | No | Yes |
 | **Alter XML Document Repeatedly**    | No | Yes |
 
-## Extension of Charting and Data Visualization
+### 2.2 Extension of Charting and Data Visualization
 Google Scatter chart and a Google Line chart are used to represent the data queried from the normalised XML data files. The scatter chart can show a year (2016) worth of nitrogen dioxide (NO2) concentration data from a specific station at a specific hour (0800) of the day. User can select a specific station from the dropdown and the scatter chart will render the NO2 concentration data of every day that has the 0800 hours record for that specific station. As for the line chart, it shows the NO2 value in any 24-hour period on any day for any of the six stations. User can select the station and available date. 
 
 For the charts to offer more information, some visibility extension can be done. One of the implemented extensions is by colour encoding different levels of pollution based on the concentration of NO2 according to the [DEFRA Site](https://uk-air.defra.gov.uk/air-pollution/daqi).
@@ -114,7 +127,7 @@ Other than just showing the value of NO2, a bar chart can be used to show the va
 
 ![Bar Chart](https://github.com/ericstaryou/ATWD2Assignment/blob/master/Bar%20chart.PNG)
 
-## References
+## 3.0 References
 Harold, E.R. (2002) *Choosing between SAX and DOM*. Available from: http://www.cafeconleche.org/books/xmljava/chapters/ch09s11.html [Accessed 19/03/2017]. 
 
 Kak, A.C. (2012) *Scripting with Objects: A Comparative Presentation of Object-Oriented Scripting with Perl and Python* [online]. John Wiley & Sons. [Accessed 3/17/2017 2:58:17 PM].
