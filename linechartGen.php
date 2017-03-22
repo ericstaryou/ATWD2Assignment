@@ -10,13 +10,13 @@
 
   $data = array();
 
-  //query time and val according to date
+  #query time and val according to date
   while($reader->read()){
   	if($reader->nodeType === XMLREADER::ELEMENT && $reader->localName === 'reading'){
 		if($reader->getAttribute('date') === $date){
 			$reading = array();
 			$time = $reader->getAttribute('time');
-			$hour = (int)substr($time, 0, 2); //storing only the hour part of the time string
+			$hour = (int)substr($time, 0, 2); #storing only the hour part of the time string
 
 			$reading['time'] = $hour;
 			$reading['val'] = (int)$reader->getAttribute('val');
@@ -31,7 +31,7 @@
  	$hour_val[$i] = calAvgValue($data, $i);
  }
 
- //calculate average NO2 value for abitrary hour
+ #calculate average NO2 value for abitrary hour
  function calAvgValue(&$data, $hour){
 	 $occurrence = null;
 	 $value = null;
@@ -46,7 +46,7 @@
 		 }
 	 }
 
-	 //calc average NO2 value based on number of record
+	 #calc average NO2 value based on number of record
 	 if($occurrence == 0){
 		 return 0; 
 	 }
@@ -62,7 +62,7 @@
 
  foreach($hour_val as $hour => $val){
     $colorcode = null;
-    //colour encoding for different level of NO2 concentration
+    #colour encoding for different level of NO2 concentration
     if($val < 0 || $val >= 0 && $val  <= 67){
       $colorcode = 'rgb(156, 255, 156)';
     }else if($val >= 68 && $val  <= 134){
@@ -85,8 +85,8 @@
       $colorcode = 'rgb(206, 48, 255)';
     }
 	 
-    //arranging the data into a data stucture that the Google chart could understand 
-    //ref: http://stackoverflow.com/questions/17245478/building-array-and-formatting-json-for-google-charting-api
+    #arranging the data into a data stucture that the Google chart could understand 
+    #ref: http://stackoverflow.com/questions/17245478/building-array-and-formatting-json-for-google-charting-api
     $array['rows'][] = array('c' => array( array('v'=>$hour+1), array('v'=>$val),array('v'=>'point {size: 5;fill-color:'. $colorcode)) );
   }
 
