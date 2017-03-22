@@ -8,13 +8,13 @@
   $year = '2016';
   $data = array();
   
-  //reading data from XML data files and storing into an array
+  #reading data from XML data files and storing into an array
   while($reader->read()){
     if($reader->nodeType === XMLREADER::ELEMENT && $reader->localName === 'reading'){
       $date = $reader->getAttribute('date');
       if($reader->getAttribute('time') === '08:00:00' && substr($date, 6, 4) === $year){
         $reading = array();
-        //$reading['date'] = $date;
+        #$reading['date'] = $date;
         $dateForSort = str_replace('/', '-', $date);
         $reading['dateForSort'] = date('Y-m-d', strtotime($dateForSort));
         $reading['date'] = $date;
@@ -24,7 +24,7 @@
     }
   }
 
-  //sort the data according to the date
+  #sort the data according to the date
   asort($data);
 
   $array = array();
@@ -34,7 +34,7 @@
   
   foreach($data as $row){
     $colorcode = null;
-    //colour encoding for different level of NO2 concentration
+    #colour encoding for different level of NO2 concentration
     if($row['val'] < 0 || $row['val'] >= 0 && $row['val']  <= 67){
       $colorcode = 'rgb(156, 255, 156)';
     }else if($row['val'] >= 68 && $row['val']  <= 134){
@@ -57,12 +57,12 @@
       $colorcode = 'rgb(206, 48, 255)';
     }
 
-    //arranging the data into a data stucture that the Google chart could understand 
-    //ref: http://stackoverflow.com/questions/17245478/building-array-and-formatting-json-for-google-charting-api
+    #arranging the data into a data stucture that the Google chart could understand 
+    #ref: http://stackoverflow.com/questions/17245478/building-array-and-formatting-json-for-google-charting-api
     $array['rows'][] = array('c' => array(array('v'=>$row['date']), array('v'=>$row['val']), array('v'=>'point {fill-color:' . $colorcode)));
   }
   
-  //encodes the array into json format as a response for ajax to populate the Google chart
+  #encodes the array into json format as a response for ajax to populate the Google chart
   print json_encode($array);
 
 ?>
