@@ -106,7 +106,7 @@ if($row['val'] < 0 || $row['val'] >= 0 && $row['val']  <= 67){
 ```
 The figure below shows the resulting scatter chart with colour encoded data points.
 
-![scatterchart](https://github.com/ericstaryou/ATWD2Assignment/blob/master/scatterchart%20Example.PNG) 
+![Scatter Chart](https://github.com/ericstaryou/ATWD2Assignment/blob/master/scatterchart%20Example.PNG) 
 
 Moreover, as mentioned earlier, the line chart only shows the value for only one station at a time. It can be improved by showing the values of all six stations of the selected date if the XML data files holds the record. Thus, there will be at most six lines on the line chart on one instance. This could help the user to compare the level of pollution based on the NO2 concentration between stations on the same day. 
 
